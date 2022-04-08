@@ -26,7 +26,7 @@ public class SLLogin {
         driver.findElement(username).sendKeys(userName, Keys.TAB);
         driver.findElement(password).sendKeys("secret_sauce", Keys.ENTER);
         driver.findElement(shoppingCart).click();
-        driver.findElement(checkoutButton);
+        driver.findElement(checkoutButton).click();
         return new SLCheckout(driver);
     }
 

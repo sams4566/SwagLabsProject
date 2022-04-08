@@ -43,9 +43,9 @@ public class SwagLabsPOMTests {
     @DisplayName("Cart Tests")
     class CartTests {
         @Test
-        @DisplayName("Check Url is correct for cart")
-        void checkUrlIsCorrectForCart() {
-            assertEquals(login.goToCartPage(userName).getUrl(), "https://www.saucedemo.com/cart.html");
+        @DisplayName("Check Url is correct for cart page")
+        void checkUrlIsCorrectForCartPage() {
+            Assertions.assertTrue(login.goToCartPage(userName).getUrl().equals("https://www.saucedemo.com/cart.html"));
         }
 
         @Test
@@ -58,6 +58,18 @@ public class SwagLabsPOMTests {
         @DisplayName("Check backpack has been removed from cart")
         void checkBackpackHasBeenRemovedFromCart() {
             Assertions.assertTrue(login.goToCartPage(userName).removeBackpackInCart());
+        }
+
+        @Test
+        @DisplayName("Check number of items in the cart")
+        void checkNumberOfItemsInTheCart() {
+            Assertions.assertTrue(login.goToCartPage(userName).getNumberOfItemsInCart());
+        }
+
+        @Test
+        @DisplayName("Check the number in the cart image")
+        void checkTheNumberInTheCartImage() {
+            Assertions.assertTrue(login.goToCartPage(userName).getNumberInCartImage());
         }
     }
 
