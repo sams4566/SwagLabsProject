@@ -21,13 +21,10 @@ public class SwagLabsPOMTests {
     private static ChromeDriverService service;
     private static String userName = "standard_user";
 
+
     @BeforeAll
     static void setupAll() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-    }
-
-    @BeforeEach
-    void setup() {
         options = new ChromeOptions();
         options.addArguments("headless");
         service = new ChromeDriverService.Builder().usingDriverExecutable(new File("src/test/resources/chromedriver.exe")).usingAnyFreePort().build();
@@ -36,6 +33,10 @@ public class SwagLabsPOMTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @BeforeEach
+    void setup() {
         driver = new ChromeDriver(service, options);
         login = new SLLogin(driver);
         products = new SLProducts(driver);
@@ -71,6 +72,37 @@ public class SwagLabsPOMTests {
         Assertions.assertTrue(login.goToProductsPage(userName).isAddToCartButtonAvailableForAllProducts());
     }
 
+    @Nested
+    @DisplayName("Cart Tests")
+    class CartTests {
+        @Test
+        @DisplayName("Check Url is correct for cart")
+        void checkUrlIsCorrectForCart() {
+            assertEquals(login.goToCartPage(userName).getUrl(), "https://www.saucedemo.com/cart.html");
+        }
 
+        @Test
+        @DisplayName("Check backpack is in the cart")
+        void checkBackpackIsInTheCart() {
+            Assertions.assertTrue(login.goToCartPage(userName).retrieveBackpackInCart());
+        }
+
+        @Test
+        @DisplayName("Check backpack has been removed from cart")
+        void checkBackpackHasBeenRemovedFromCart() {
+            Assertions.assertTrue(login.goToCartPage(userName).removeBackpackInCart());
+        }
+    }
+
+    @AfterEach
+    void teardown() {
+        driver.close();
+    }
+
+    @AfterAll
+    static void teardownAll() {
+        driver.quit();
+        service.stop();
+    }
 
 }
