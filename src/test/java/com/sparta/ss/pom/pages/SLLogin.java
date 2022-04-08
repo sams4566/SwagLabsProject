@@ -16,23 +16,27 @@ public class SLLogin {
         driver.get("https://www.saucedemo.com/");
     }
 
-    public SLProducts goToProductsPage(String userName) {
+    private void login(String userName) {
         driver.findElement(username).sendKeys(userName, Keys.TAB);
         driver.findElement(password).sendKeys("secret_sauce", Keys.ENTER);
+    }
+
+    public SLProducts goToProductsPage(String userName) {
+        login(userName);
         return new SLProducts(driver);
     }
 
+
     public SLCheckout goToCheckoutPage(String userName) {
-        driver.findElement(username).sendKeys(userName, Keys.TAB);
-        driver.findElement(password).sendKeys("secret_sauce", Keys.ENTER);
+        login(userName);
         driver.findElement(shoppingCart).click();
-        driver.findElement(checkoutButton);
+        driver.findElement(checkoutButton).click();
         return new SLCheckout(driver);
     }
 
     public SLCart goToCartPage(String userName) {
-        driver.findElement(username).sendKeys(userName, Keys.TAB);
-        driver.findElement(password).sendKeys("secret_sauce", Keys.ENTER);
+        login(userName);
         return new SLCart(driver);
     }
+
 }
