@@ -13,6 +13,7 @@ public class SLCheckout extends SharedPageMethods {
     By errorButton = new By.ByClassName("error-button");
     By finishButton = new By.ById("finish");
     By backHomeButton = new By.ById("back-to-products");
+    By errorContainer = new By.ByClassName("error-message-container error");
 
 
     public SLCheckout(WebDriver driver) {
@@ -22,13 +23,8 @@ public class SLCheckout extends SharedPageMethods {
     public SLCheckout inputInformation(){
         driver.findElement(firstName).sendKeys("First", Keys.TAB);
         driver.findElement(lastName).sendKeys("Last", Keys.TAB);
-        driver.findElement(postCode).sendKeys("postcode", Keys.ENTER);
+        driver.findElement(postCode).sendKeys("Postcode", Keys.ENTER);
         return new SLCheckout(driver);
-    }
-
-    public boolean noInfoInputted(){
-        driver.findElement(continueButton).click();
-        return driver.findElement(errorButton).isDisplayed();
     }
 
     public SLCheckout checkoutStepTwo(){
@@ -36,7 +32,36 @@ public class SLCheckout extends SharedPageMethods {
         return new SLCheckout(driver);
     }
 
-    public boolean backHomeReturnsToHome(){
+    public boolean doesErrorMessageAskForFirstName(){
+        driver.findElement(lastName).sendKeys("Last", Keys.TAB);
+        driver.findElement(postCode).sendKeys("Postcode", Keys.ENTER);
+        return driver.findElement(errorContainer).getText().equals("Error: First Name is required");
+    }
+
+    public boolean doesErrorMessageAskForLastName(){
+        driver.findElement(firstName).sendKeys("First", Keys.TAB);
+        driver.findElement(postCode).sendKeys("Postcode", Keys.ENTER);
+        return driver.findElement(errorContainer).getText().equals("Error: Last Name is required");
+    }
+
+    public boolean doesErrorMessageAskForPostCode(){
+        driver.findElement(firstName).sendKeys("First", Keys.TAB);
+        driver.findElement(lastName).sendKeys("Last", Keys.ENTER);
+        return driver.findElement(errorContainer).getText().equals("Error: Postal Code is required");
+    }
+
+    public boolean doesErrorShowWhenNothingIsInputted(){
+        driver.findElement(continueButton).click();
+        return driver.findElement(errorButton).isDisplayed();
+    }
+
+    public boolean doesErrorButtonDisappearAfterClick(){
+        driver.findElement(continueButton).click();
+        driver.findElement(errorButton).click();
+        return !driver.findElement(errorButton).isDisplayed();
+    }
+
+    public boolean doesBackHomeReturnsToHome(){
         inputInformation().checkoutStepTwo().driver.findElement(backHomeButton).click();
         return driver.getCurrentUrl().equals("https://www.saucedemo.com/inventory.html");
     }
