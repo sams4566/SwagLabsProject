@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
-public class SLCheckout extends SharedPageMethods {
+public class SLCheckout {
     private WebDriver driver;
     By firstName = new By.ById("first-name");
     By lastName = new By.ById("last-name");
@@ -18,6 +18,10 @@ public class SLCheckout extends SharedPageMethods {
 
     public SLCheckout(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public String getUrl() {
+        return driver.getCurrentUrl();
     }
 
     public SLCheckout inputInformation(){
