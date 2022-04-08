@@ -42,34 +42,38 @@ public class SwagLabsPOMTests {
         products = new SLProducts(driver);
     }
 
-    @Test
-    @DisplayName("Check if product page is loaded after login")
-    void checkIfProductPageIsLoadedAfterLogin() {
-        Assertions.assertTrue(login.goToProductsPage(userName).getUrl().equals("https://www.saucedemo.com/inventory.html"));
-    }
+    @Nested
+    class ProductPage {
+        @Test
+        @DisplayName("Check if product page is loaded after login")
+        void checkIfProductPageIsLoadedAfterLogin() {
+            Assertions.assertTrue(login.goToProductsPage(userName).getUrl().equals("https://www.saucedemo.com/inventory.html"));
+        }
 
-    @Test
-    @DisplayName("Check if the product page has six products displayed")
-    void checkIfTheProductPageHasSixProductsDisplayed() {
-        Assertions.assertTrue(login.goToProductsPage(userName).isNumberOfProductsDisplayedSix());
-    }
+        @Test
+        @DisplayName("Check if the product page has six products displayed")
+        void checkIfTheProductPageHasSixProductsDisplayed() {
+            Assertions.assertTrue(login.goToProductsPage(userName).isNumberOfProductsDisplayedSix());
+        }
 
-    @Test
-    @DisplayName("Check if there are images associated with all the products displayed")
-    void checkIfThereAreImagesAssociatedWithAllTheProductsDisplayed() {
-        Assertions.assertTrue(login.goToProductsPage(userName).isThereImageOfAllProducts());
-    }
+        @Test
+        @DisplayName("Check if there are images associated with all the products displayed")
+        void checkIfThereAreImagesAssociatedWithAllTheProductsDisplayed() {
+            Assertions.assertTrue(login.goToProductsPage(userName).isThereImageOfAllProducts());
+        }
 
-    @Test
-    @DisplayName("Check if there is a product title")
-    void checkIfThereIsAProductTitle() {
-        Assertions.assertTrue(login.goToProductsPage(userName).isTitleProducts());
-    }
+        @Test
+        @DisplayName("Check if there is a product title")
+        void checkIfThereIsAProductTitle() {
+            Assertions.assertTrue(login.goToProductsPage(userName).isTitleProducts());
+        }
 
-    @Test
-    @DisplayName("Check if there is add to cart button for each item")
-    void checkIfThereIsAddToCartButtonForEachItem() {
-        Assertions.assertTrue(login.goToProductsPage(userName).isAddToCartButtonAvailableForAllProducts());
+        @Test
+        @DisplayName("Check if there is add to cart button for each item")
+        void checkIfThereIsAddToCartButtonForEachItem() {
+            Assertions.assertTrue(login.goToProductsPage(userName).isAddToCartButtonAvailableForAllProducts());
+        }
+
     }
 
     @Nested
