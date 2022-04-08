@@ -84,6 +84,9 @@ public class SLCheckout {
         return driver.getCurrentUrl().equals("https://www.saucedemo.com/inventory.html");
     }
 
+    public String getUrl() {
+        return driver.getCurrentUrl();
+    }
 
 
 
