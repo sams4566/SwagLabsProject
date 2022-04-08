@@ -25,7 +25,6 @@ public class SLLogin {
     public SLCart goToCartPage(String userName) {
         driver.findElement(username).sendKeys(userName, Keys.TAB);
         driver.findElement(password).sendKeys("secret_sauce", Keys.ENTER);
-        driver.findElement(password).click();
         return new SLCart(driver);
     }
 }

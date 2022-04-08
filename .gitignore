@@ -6,7 +6,7 @@
 
 # CSV file
 *.csv
-src/test/resources/chromedriver.exe
+src/test/resources/chromedriver
 
 # Package Files #
 *.jar
