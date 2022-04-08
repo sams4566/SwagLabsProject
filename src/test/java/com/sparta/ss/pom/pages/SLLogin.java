@@ -11,7 +11,6 @@ public class SLLogin {
     By shoppingCart = new By.ByClassName("shopping_cart_link");
     By checkoutButton = new By.ById("checkout");
 
-
     public SLLogin(WebDriver driver) {
         this.driver = driver;
         driver.get("https://www.saucedemo.com/");
@@ -23,24 +22,18 @@ public class SLLogin {
         return new SLProducts(driver);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public SLCheckout goToCheckoutPage(String userName) {
         driver.findElement(username).sendKeys(userName, Keys.TAB);
         driver.findElement(password).sendKeys("secret_sauce", Keys.ENTER);
         driver.findElement(shoppingCart).click();
         driver.findElement(checkoutButton);
         return new SLCheckout(driver);
+    }
+
+    public SLCart goToCartPage(String userName) {
+        driver.findElement(username).sendKeys(userName, Keys.TAB);
+        driver.findElement(password).sendKeys("secret_sauce", Keys.ENTER);
+        driver.findElement(password).click();
+        return new SLCart(driver);
     }
 }
